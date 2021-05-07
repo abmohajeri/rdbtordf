@@ -10,7 +10,7 @@ This script is using [d2rq](http://d2rq.org) for converting rdb to rdf.
 
 ## Queries
 Queries are available in `queries` folder.  
-These sparql queries are specially provided for [bikestores](https://www.sqlservertutorial.net/sql-server-sample-database/) database.
+These sparql queries are specially provided for [bikestores](https://www.sqlservertutorial.net/sql-server-sample-database/) database.  
 New Queries:
 1. number of each product available in stock for a specific store
 2. Average spent of a specific customer from a specific store
