@@ -1,7 +1,7 @@
 # Group1 - Query 2
 # Average spent of a specific customer from a specific store(customers, stores, orders, order_items)
 
-PREFIX db:   <file:///C:/Users/Abolfazl/Desktop/dump-db/vocab/>
+PREFIX db:   <http://wtlab.um.ac.ir/linkdata/vocab/>
 
 SELECT DISTINCT (AVG(?list_price) AS ?avgPrice)
 WHERE {
