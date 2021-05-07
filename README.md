@@ -1,6 +1,7 @@
 # RDBtoRDF
 
 This script is using [d2rq](http://d2rq.org) for converting rdb to rdf.
+Converted rdf is stored in `dump-rdf`.
 
 ## USAGE
 1. Clone the repo :)
