@@ -1,0 +1,25 @@
+# Group 1 - Query 4
+# Name of all customers that have purchased from a specific brand (Electra) in a specific date range (after 2018-05-23)
+
+PREFIX db:   <http://wtlab.um.ac.ir/linkdata/vocab/>
+SELECT DISTINCT ?name ?family
+WHERE {
+  ?customer a db:customers;
+     db:customers_first_name ?name;
+     db:customers_last_name ?family.
+
+  ?order a db:orders;
+    db:orders_customer_id ?customer;
+    db:orders_order_date ?date .
+  FILTER(?date > "2018-05-23"^^xsd:dateTime) .
+
+  ?brand a db:brands;
+    db:brands_brand_name "Electra" .
+
+  ?product a db:products;
+     db:products_brand_id ?brand .
+
+  ?order_item a db:order_items;
+    db:order_items_order_id ?order;
+    db:order_items_product_id ?product .
+}
