@@ -1,0 +1,20 @@
+# Group 1 - Query 5
+# Name of all products that have been sold more than a specific amount (20) in a specific date range (after 2017-08-23)
+
+PREFIX db: <http://wtlab.um.ac.ir/linkdata/vocab/>
+SELECT DISTINCT ?product_name
+WHERE {
+  ?product a db:products;
+     db:products_product_name ?product_name .
+
+  ?order a db:orders;
+    db:orders_order_date ?date .
+  FILTER(?date > "2017-08-23"^^xsd:dateTime).
+
+  ?order_item a db:order_items;
+    db:order_items_order_id ?order;
+    db:order_items_product_id ?product;
+    db:order_items_quantity ?count .
+}
+GROUP BY ?product ?product_name
+HAVING (sum(?count) > 20)
