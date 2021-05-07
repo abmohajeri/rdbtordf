@@ -1,0 +1,20 @@
+# Group 1 - Query1
+# number of each product available in stock for a specific store(products, stores, stocks)
+
+PREFIX db:   <http://wtlab.um.ac.ir/linkdata/vocab/>
+SELECT DISTINCT ?product_name, (SUM(?quantity) AS ?productCount)
+WHERE {
+  ?product a db:products;
+     db:products_product_name ?product_name .
+
+  ?store a db:stores;
+    db:stores_store_name ?store_name .
+  FILTER regex(?store_name, "Santa Cruz Bikes") .
+
+
+  ?stock a db:stocks;
+    db:stocks_product_id ?product;
+    db:stocks_store_id ?store;
+    db:stocks_quantity ?quantity .
+}
+GROUP BY ?store_name ?product_name

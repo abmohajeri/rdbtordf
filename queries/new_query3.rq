@@ -1,0 +1,47 @@
+# Group 1 - Query 3
+# List of staff names who has taken the maximum number of orders in stores(staffs, stores, orders)
+
+PREFIX db:   <http://wtlab.um.ac.ir/linkdata/vocab/>
+
+SELECT DISTINCT ?store_name, ?staff_name, ?maxOrders
+WHERE{
+ {
+   SELECT DISTINCT ?store_name, ?staff_name, COUNT(?order) as ?count
+   WHERE {
+      ?store a db:stores;
+        db:stores_store_name ?store_name .
+
+      ?staff a db:staffs;
+        db:staffs_first_name ?staff_name;
+        db:staffs_store_id ?store .
+
+      ?order a db:orders;
+        db:orders_store_id ?store;
+        db:orders_staff_id ?staff .
+   }
+   GROUP BY ?store_name ?staff_name
+ }{
+   SELECT $store_name, MAX(?count) as ?maxOrders 
+   WHERE{
+     {
+     SELECT DISTINCT ?store_name, ?staff_name, COUNT(?order) as ?count
+     WHERE {
+        ?store a db:stores;
+          db:stores_store_name ?store_name .
+
+        ?staff a db:staffs;
+          db:staffs_first_name ?staff_name;
+          db:staffs_store_id ?store .
+
+        ?order a db:orders;
+          db:orders_store_id ?store;
+          db:orders_staff_id ?staff .
+     }
+     GROUP BY ?store_name ?staff_name
+     }
+   }
+  GROUP BY ?store_name 
+  }
+
+  FILTER(?count = ?maxOrders)
+}

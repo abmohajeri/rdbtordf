@@ -1,0 +1,26 @@
+# Group1 - Query 2
+# Average spent of a specific customer from a specific store(customers, stores, orders, order_items)
+
+PREFIX db:   <file:///C:/Users/Abolfazl/Desktop/dump-db/vocab/>
+
+SELECT DISTINCT (AVG(?list_price) AS ?avgPrice)
+WHERE {
+  ?customer a db:customers;
+     db:customers_first_name ?first_name;
+     db:customers_last_name ?last_name .
+  FILTER regex(?first_name, "Joshua").
+  FILTER regex(?last_name, "Robertson").
+
+  ?store a db:stores;
+    db:stores_store_name ?store_name .
+  FILTER regex(?store_name, "Baldwin Bikes") .
+  
+  ?order a db:orders;
+    db:orders_customer_id ?customer;
+    db:orders_store_id ?store .
+   
+  ?order_item a db:order_items;
+    db:order_items_order_id ?order;
+    db:order_items_list_price ?list_price .
+}
+GROUP BY ?customer ?store
